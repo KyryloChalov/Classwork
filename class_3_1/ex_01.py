@@ -4,6 +4,7 @@ from threading import Thread
 
 def worker(param):
     rand = randint(0,5)
+    # rand = randint(0,5)
     # print('Thread # ', param, ' sleep ', rand)
     print(param, ' sleep ', rand)
     sleep(rand)
