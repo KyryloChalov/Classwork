@@ -12,7 +12,7 @@ def worker(param):
     print(param, 'end')
 
 if __name__ == "__main__":
-    for i in range(55):
+    for i in range(5):
         # print('Thread # ', i, ' call')
         # th = Thread(target=th_function, args=(i, ))
         th = Thread(target=worker, args=(f"Count thread - {i}", ))

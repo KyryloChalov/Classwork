@@ -1,27 +1,22 @@
-import asyncio
-import requests
-from concurrent.futures import ThreadPoolExecutor
-from time import time
-
-urls = ["http://www.google.com", "http://www.python.org", "http://duckduckgo.com"]
+from threading import Timer
+from logger import logger
+from time import sleep
 
 
-def preview_fetch(url):
-    r = requests.get(url)
-    return url, r.text[:150]
+def example_work():
+    logger.debug('Start!')
 
 
-async def preview_fetch_async():
-    loop = asyncio.get_running_loop()
+if __name__ == '__main__':
 
-    with ThreadPoolExecutor(3) as pool:
-        futures = [loop.run_in_executor(pool, preview_fetch, url) for url in urls]
-        result = await asyncio.gather(*futures, return_exceptions=True)
-        return result
+    first = Timer(0.5, example_work)
+    first.name = 'First thread'
+    second = Timer(0.7, example_work)
+    second.name = 'Second thread'
+    logger.debug('Start timers')
+    first.start()
+    second.start()
+    sleep(0.6)
+    second.cancel()
 
-
-if __name__ == "__main__":
-    start = time()
-    r = asyncio.run(preview_fetch_async())
-    print(r)
-    print(time() - start)
+    logger.debug('End program')
